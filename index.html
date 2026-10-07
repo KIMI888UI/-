@@ -14,9 +14,10 @@
     .eyebrow { color:var(--cyan); text-transform:uppercase; letter-spacing:.22em; font-size:.7rem; font-weight:800; margin:0 0 9px; }
     .tag { color:var(--muted); font-size:.86rem; }
     .card { background:linear-gradient(145deg,rgba(20,28,54,.94),rgba(11,16,33,.94)); border:1px solid var(--line); border-radius:22px; box-shadow:0 22px 70px #02040f88; }
-    .game-card { padding:18px; min-width:0; }
-    .hud { display:flex; justify-content:space-between; align-items:center; padding:0 3px 14px; }
+    .game-card { padding:18px; min-width:0; width:100%; }
+    .hud { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:0 3px 14px; }
     .score-label { color:var(--muted); font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; }
+    .metric { min-width:0; }
     .score { color:var(--green); font-size:1.7rem; line-height:1; font-weight:850; margin-top:3px; }
     .status { border:1px solid #354367; border-radius:99px; padding:7px 11px; color:var(--cyan); font-size:.72rem; font-weight:700; }
     canvas { display:block; width:100%; max-width:100%; height:auto; touch-action:none; overscroll-behavior:contain; width:100%; aspect-ratio:1; display:block; background:#070b19; border-radius:15px; border:1px solid #2d3961; box-shadow:inset 0 0 50px #0008,0 0 0 5px #0b1124; image-rendering:auto; }
@@ -35,14 +36,18 @@
     button:hover { filter:brightness(1.08); transform:translateY(-1px); } button.secondary { margin-top:9px; background:#1d294b; color:#dce6ff; }
     .tip { color:var(--muted); line-height:1.55; font-size:.78rem; }
     .tip strong { color:#e9eeff; }
-    @media (max-width:700px) { body { padding:16px; align-items:center; } .app { grid-template-columns:1fr; width:100%; max-width:520px; } .brand { align-items:flex-start; flex-direction:column; gap:8px; } .side { display:flex; flex-direction:column; align-items:center; gap:0; padding:18px; min-width:0; } .side .keys { display:none; } .side button#start,.side button#pause { max-width:360px; } .side h2,.rule,.tip { width:100%; } .keys { margin:2px 0; } .mobile-pad { margin-left:auto; margin-right:auto; grid-template-columns:repeat(3,58px); gap:8px; } .mobile-pad button { width:58px; height:52px; font-size:1.15rem; } }
+    @media (max-width:700px) { body { padding:16px; align-items:center; } .app { grid-template-columns:1fr; width:100%; max-width:520px; } .brand { align-items:flex-start; flex-direction:column; gap:8px; } .hud { justify-content:center; } .side { display:flex; flex-direction:column; align-items:center; gap:0; padding:18px; min-width:0; } .side .keys { display:none; } .side button#start,.side button#pause { max-width:360px; } .side h2,.rule,.tip { width:100%; } .keys { margin:2px 0; } .mobile-pad { margin-left:auto; margin-right:auto; grid-template-columns:repeat(3,58px); gap:8px; } .mobile-pad button { width:58px; height:52px; font-size:1.15rem; } }
   </style>
 </head>
 <body>
   <main class="app">
     <header class="brand"><div><p class="eyebrow">ARCADE / 01</p><h1>霓虹贪吃蛇</h1></div><span class="tag">吃掉光点，越长越强。</span></header>
     <section class="card game-card">
-      <div class="hud"><div><div><div class="score-label">当前分数</div><div class="score" id="score">000</div></div><div><div class="score-label">最高分</div><div class="score" id="best">000</div></div><div class="status" id="status">准备开始</div></div>
+      <div class="hud">
+        <div class="metric"><div class="score-label">当前分数</div><div class="score" id="score">000</div></div>
+        <div class="metric"><div class="score-label">最高分</div><div class="score" id="best">000</div></div>
+        <div class="status" id="status">准备开始</div>
+      </div>
       <canvas id="board" width="600" height="600" aria-label="贪吃蛇游戏区域"></canvas>
     </section>
     <aside class="card side">
