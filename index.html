@@ -23,7 +23,7 @@
     .side { padding:22px; }
     .side h2 { margin:0 0 16px; font-size:1rem; }
     .rule { height:1px; background:var(--line); margin:18px 0; }
-    .keys { display:grid; grid-template-columns:repeat(3,38px); gap:6px; justify-content:center; margin:14px 0 8px; }
+    .keys { display:none; display:grid; grid-template-columns:repeat(3,38px); gap:6px; justify-content:center; margin:14px 0 8px; }
     kbd { display:grid; place-items:center; height:35px; border:1px solid #3d4d78; border-radius:9px; background:#161f3a; color:#cbd5f7; font-size:.78rem; box-shadow:0 2px 0 #080b18; }
     kbd:nth-child(1) { grid-column:2; } .keyrow { display:contents; }
     .mobile-pad { display:grid; grid-template-columns:repeat(3,50px); gap:6px; justify-content:center; margin:16px 0 4px; }
@@ -46,8 +46,7 @@
     </section>
     <aside class="card side">
       <h2>操作说明</h2>
-      <div class="keys"><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></div>
-      <p class="hint">方向键 / WASD 控制移动</p><div class="mobile-pad" aria-label="手机方向盘"><button data-dir="up" aria-label="向上">▲</button><button data-dir="left" aria-label="向左">◀</button><button data-dir="down" aria-label="向下">▼</button><button data-dir="right" aria-label="向右">▶</button></div>
+      <p class="hint">电脑端：方向键 / WASD 控制移动<br>手机端：点击下方方向盘</p><div class="mobile-pad" aria-label="手机方向盘"><button data-dir="up" aria-label="向上">▲</button><button data-dir="left" aria-label="向左">◀</button><button data-dir="down" aria-label="向下">▼</button><button data-dir="right" aria-label="向右">▶</button></div>
       <div class="rule"></div>
       <button id="start">开始游戏</button><button class="secondary" id="pause">暂停</button>
       <div class="rule"></div>
