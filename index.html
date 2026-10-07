@@ -26,6 +26,9 @@
     .keys { display:grid; grid-template-columns:repeat(3,38px); gap:6px; justify-content:center; margin:14px 0 8px; }
     kbd { display:grid; place-items:center; height:35px; border:1px solid #3d4d78; border-radius:9px; background:#161f3a; color:#cbd5f7; font-size:.78rem; box-shadow:0 2px 0 #080b18; }
     kbd:nth-child(1) { grid-column:2; } .keyrow { display:contents; }
+    .mobile-pad { display:grid; grid-template-columns:repeat(3,44px); gap:6px; justify-content:center; margin:16px 0 4px; }
+    .mobile-pad button { width:44px; height:40px; padding:0; border:1px solid #3d4d78; background:#161f3a; color:#cbd5f7; border-radius:10px; font-size:1rem; }
+    .mobile-pad button:first-child { grid-column:2; } .mobile-pad button:active { background:var(--cyan); color:#07101e; transform:scale(.95); }
     .hint { text-align:center; color:var(--muted); font-size:.78rem; margin:0; }
     button { width:100%; border:0; border-radius:12px; padding:12px 14px; color:#081018; background:var(--green); font:inherit; font-weight:800; cursor:pointer; transition:.2s transform,.2s filter; }
     button:hover { filter:brightness(1.08); transform:translateY(-1px); } button.secondary { margin-top:9px; background:#1d294b; color:#dce6ff; }
@@ -44,7 +47,7 @@
     <aside class="card side">
       <h2>操作说明</h2>
       <div class="keys"><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></div>
-      <p class="hint">方向键 / WASD 控制移动</p>
+      <p class="hint">方向键 / WASD 控制移动</p><div class="mobile-pad" aria-label="手机方向盘"><button data-dir="up" aria-label="向上">▲</button><button data-dir="left" aria-label="向左">◀</button><button data-dir="down" aria-label="向下">▼</button><button data-dir="right" aria-label="向右">▶</button></div>
       <div class="rule"></div>
       <button id="start">开始游戏</button><button class="secondary" id="pause">暂停</button>
       <div class="rule"></div>
@@ -63,6 +66,7 @@
     function start(){clearInterval(timer);reset();running=true;paused=false;wallGrace=false;speed=115;statusEl.textContent='游戏中';timer=setInterval(tick,speed);}
     function setDir(x,y){if(!running){start();}if(x!==-dir.x||y!==-dir.y)nextDir={x,y};}
     document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();const map={arrowup:[0,-1],w:[0,-1],arrowdown:[0,1],s:[0,1],arrowleft:[-1,0],a:[-1,0],arrowright:[1,0],d:[1,0]};if(map[k]){e.preventDefault();setDir(...map[k]);}if(k==='p'&&running){paused=!paused;statusEl.textContent=paused?'已暂停':'游戏中';}});
+    document.querySelectorAll('[data-dir]').forEach(btn=>btn.addEventListener('pointerdown',e=>{e.preventDefault();const d={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[btn.dataset.dir];setDir(...d);}));
     document.getElementById('start').onclick=start; document.getElementById('pause').onclick=()=>{if(running){paused=!paused;statusEl.textContent=paused?'已暂停':'游戏中';}};
     let touch; canvas.addEventListener('touchstart',e=>{e.preventDefault();touch=e.touches[0];},{passive:false}); canvas.addEventListener('touchend',e=>{e.preventDefault();if(!touch)return;const t=e.changedTouches[0],dx=t.clientX-touch.clientX,dy=t.clientY-touch.clientY;if(Math.max(Math.abs(dx),Math.abs(dy))>20)setDir(Math.abs(dx)>Math.abs(dy)?Math.sign(dx):0,Math.abs(dy)>Math.abs(dx)?Math.sign(dy):0);touch=null;},{passive:true}); reset();
   </script>
