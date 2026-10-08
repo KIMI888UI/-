@@ -23,7 +23,7 @@
     canvas { display:block; width:100%; max-width:100%; height:auto; touch-action:none; overscroll-behavior:contain; width:100%; aspect-ratio:1; display:block; background:#070b19; border-radius:15px; border:1px solid #2d3961; box-shadow:inset 0 0 50px #0008,0 0 0 5px #0b1124; image-rendering:auto; }
     .side { padding:22px; }
     .side h2 { margin:0 0 16px; font-size:1rem; }
-    .tutorial { width:100%; margin-bottom:14px; } .announcement { width:100%; margin-bottom:16px; padding:12px 14px; border:1px solid #35517d; border-radius:14px; background:linear-gradient(135deg,#132746,#101a34); } .announcement summary { cursor:pointer; list-style:none; color:var(--cyan); font-weight:800; font-size:.86rem; } .announcement summary::-webkit-details-marker { display:none; } .announcement summary::after { content:"＋"; float:right; } .announcement[open] summary::after { content:"－"; } .announcement ul { margin:10px 0 0; padding-left:18px; color:#cbd6f5; font-size:.76rem; line-height:1.65; } .tutorial summary { cursor:pointer; list-style:none; font-weight:800; font-size:1rem; padding:2px 0 12px; } .tutorial summary::-webkit-details-marker { display:none; } .tutorial summary::after { content:"＋"; float:right; color:var(--cyan); } .tutorial[open] summary::after { content:"－"; } .tutorial .tip { margin:12px 0 0; }
+    .tutorial { width:100%; margin-bottom:14px; } .announcement { position:fixed; top:18px; right:18px; z-index:10; } .announcement summary { width:42px; height:42px; display:grid; place-items:center; cursor:pointer; list-style:none; border:1px solid #4c6a9b; border-radius:50%; background:#132746; color:var(--cyan); font-size:1.1rem; box-shadow:0 8px 24px #02040f88; } .announcement summary::-webkit-details-marker { display:none; } .announcement ul { position:absolute; top:50px; right:0; width:min(280px,calc(100vw - 36px)); margin:0; padding:12px 14px 12px 30px; border:1px solid #35517d; border-radius:14px; background:linear-gradient(135deg,#132746,#101a34); color:#cbd6f5; font-size:.76rem; line-height:1.65; box-shadow:0 14px 35px #02040faa; } .tutorial summary { cursor:pointer; list-style:none; font-weight:800; font-size:1rem; padding:2px 0 12px; } .tutorial summary::-webkit-details-marker { display:none; } .tutorial summary::after { content:"＋"; float:right; color:var(--cyan); } .tutorial[open] summary::after { content:"－"; } .tutorial .tip { margin:12px 0 0; }
     .rule { height:1px; background:var(--line); margin:18px 0; }
     .keys { display:none; display:grid; grid-template-columns:repeat(3,38px); gap:6px; justify-content:center; margin:14px 0 8px; }
     kbd { display:grid; place-items:center; height:35px; border:1px solid #3d4d78; border-radius:9px; background:#161f3a; color:#cbd5f7; font-size:.78rem; box-shadow:0 2px 0 #080b18; }
@@ -36,10 +36,11 @@
     button:hover { filter:brightness(1.08); transform:translateY(-1px); } button.secondary { margin-top:9px; background:#1d294b; color:#dce6ff; }
     .tip { color:var(--muted); line-height:1.55; font-size:.78rem; }
     .tip strong { color:#e9eeff; }
-    @media (max-width:700px) { body { padding:16px; align-items:center; } .app { grid-template-columns:1fr; width:100%; max-width:520px; } .brand { align-items:flex-start; flex-direction:column; gap:8px; } .hud { justify-content:center; } .side { display:flex; flex-direction:column; align-items:center; gap:0; padding:18px; min-width:0; } .side .keys { display:none; } .side button#start,.side button#pause { max-width:360px; } .side h2,.rule,.tip,.announcement { width:100%; } .announcement { max-width:360px; } .keys { margin:2px 0; } .mobile-pad { margin-left:auto; margin-right:auto; grid-template-columns:repeat(3,58px); gap:8px; } .mobile-pad button { width:58px; height:52px; font-size:1.15rem; } }
+    @media (max-width:700px) { body { padding:16px; align-items:center; } .app { grid-template-columns:1fr; width:100%; max-width:520px; } .brand { align-items:flex-start; flex-direction:column; gap:8px; } .hud { justify-content:center; } .side { display:flex; flex-direction:column; align-items:center; gap:0; padding:18px; min-width:0; } .side .keys { display:none; } .side button#start,.side button#pause { max-width:360px; } .side h2,.rule,.tip { width:100%; } .keys { margin:2px 0; } .mobile-pad { margin-left:auto; margin-right:auto; grid-template-columns:repeat(3,58px); gap:8px; } .mobile-pad button { width:58px; height:52px; font-size:1.15rem; } }
   </style>
 </head>
 <body>
+  <details class="announcement"><summary aria-label="打开版本公告">📢</summary><ul><li><strong>v1.5 版本公告</strong></li><li>新增蓝色冻结食物，吃到后减速 5 秒。</li><li>冻结效果不会重复叠加，结束后恢复原速度。</li></ul></details>
   <main class="app">
     <header class="brand"><div><p class="eyebrow">ARCADE / 01</p><h1>霓虹贪吃蛇</h1></div><span class="tag">吃掉光点，越长越强。</span></header>
     <section class="card game-card">
@@ -51,7 +52,6 @@
       <canvas id="board" width="600" height="600" aria-label="贪吃蛇游戏区域"></canvas>
     </section>
     <aside class="card side">
-      <details class="announcement" open><summary>📢 版本公告 · v1.5</summary><ul><li>新增蓝色冻结食物，吃到后减速 5 秒。</li><li>冻结效果不会重复叠加，结束后恢复原速度。</li></ul></details>
       <details class="tutorial"><summary>操作教程</summary><p class="hint">电脑端：方向键 / WASD 控制移动<br>手机端：点击下方方向盘</p><p class="tip"><strong>小贴士</strong><br>撞到墙壁或自己的身体会结束游戏。</p></details><div class="mobile-pad" aria-label="手机方向盘"><button data-dir="up" aria-label="向上，W">W</button><button data-dir="left" aria-label="向左，A">A</button><button data-dir="down" aria-label="向下，S">S</button><button data-dir="right" aria-label="向右，D">D</button></div>
       <div class="rule"></div>
       <button id="start">开始游戏</button><button class="secondary" id="pause">暂停</button>
